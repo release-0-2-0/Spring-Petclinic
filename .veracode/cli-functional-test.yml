@@ -1,0 +1,14 @@
+name: spring-petclinic
+testcases:
+- name: spring petclinic repo
+  steps:
+  - script: |
+      cd ../
+      {{.script-path}}/bin/veracode package --source . --type directory --output .veracode/output/auto --trust
+    assertions:
+      - result.code ShouldEqual 0
+      - result.timeseconds ShouldBeLessThan 30
+      - result.systemout ShouldContainSubstring ".veracode/output/auto/spring-petclinic-3.2.0-plain.jar"
+      - result.systemout ShouldContainSubstring ".veracode/output/auto/spring-petclinic-3.2.0.jar"
+      - result.systemout ShouldContainSubstring "Successfully created 6 artifact(s)."
+
